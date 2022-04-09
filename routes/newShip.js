@@ -37,4 +37,72 @@ router.post("/newShip/", function(req, res){
   });
 });
 
+/**
+ * get a ship from DB with given name
+ */
+router.get("/newShip/name", function(req, res){
+  Ship.findOne({name: req.body.name}, function (error, doc) {
+    // if there was an error
+    if (error) {
+      console.error("Error finding ship", error);
+      res.status(500).send(error);
+    }
+    // if no document was found
+    else if (!doc) {
+      // create a new instance of the Ship model, using the request body as the data.
+      console.error("Can't find ship", error);
+      res.status(404).send(error);
+    }
+    // a document was found, return it instead.
+    else {
+      res.send(doc);
+    }
+  });
+});
+
+/**
+ * get all ships from DB with given secondaryBattery
+ */
+router.get("/newShip/secondaryBattery", function (req, res) {
+  Ship.findOne({name: req.body.secondaryBattery}, function (error, doc) {
+    // if there was an error
+    if (error) {
+      console.error("Error finding ship", error);
+      res.status(500).send(error);
+    }
+    // if no document was found
+    else if (!doc) {
+      // create a new instance of the Ship model, using the request body as the data.
+      console.error("Can't find ship", error);
+      res.status(404).send(error);
+    }
+    // a document was found, return it instead.
+    else {
+      res.send(doc);
+    }
+  });
+});
+
+/**
+ * find and update the ship with given name
+ */
+router.patch("/updateShip", function(res, req){
+  Ship.findOneAndUpdate({name: req.body.name}, function(error, doc){
+    if (error) {
+      console.error("Error finding ship", error);
+      res.status(500).send(error);
+    }
+    // if no document was found
+    else if (!doc) {
+      // create a new instance of the Ship model, using the request body as the data.
+      console.error("Can't find ship", error);
+      res.status(404).send(error);
+    }
+    // a document was found, return it instead.
+    else {
+      res.send(doc);
+    }
+  });
+});
+
 module.exports = router;
